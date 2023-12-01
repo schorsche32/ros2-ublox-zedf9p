@@ -1606,7 +1606,9 @@ struct UbloxSerializer<ublox_msgs::msg::NavHPPOSECEF_<ContainerAllocator> > {
                           ublox_msgs::msg::NavHPPOSECEF_<ContainerAllocator> & m) {
     UbloxIStream stream(const_cast<uint8_t *>(data), count);
     stream.next(m.version);
-    stream.next(m.reserved0);
+    stream.next(m.reserved0[0]);
+    stream.next(m.reserved0[1]);
+    stream.next(m.reserved0[2]);
     stream.next(m.i_tow);
     stream.next(m.ecef_x);
     stream.next(m.ecef_y);
@@ -1627,7 +1629,9 @@ struct UbloxSerializer<ublox_msgs::msg::NavHPPOSECEF_<ContainerAllocator> > {
                            const ublox_msgs::msg::NavHPPOSECEF_<ContainerAllocator> & m) {
     UbloxOStream stream(data, size);
     stream.next(m.version);
-    stream.next(m.reserved0);
+    stream.next(m.reserved0[0]);
+    stream.next(m.reserved0[1]);
+    stream.next(m.reserved0[2]);
     stream.next(m.i_tow);
     stream.next(m.ecef_x);
     stream.next(m.ecef_y);

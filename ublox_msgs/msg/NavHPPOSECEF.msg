@@ -9,8 +9,9 @@ uint8 CLASS_ID = 1
 uint8 MESSAGE_ID = 19
 
 uint8 version           # Message version (0x00 for this version).
-uint8 reserved0         # Reserved
+uint8[3] reserved0      # Reserved
 uint32 i_tow            # GPS Millisecond Time of Week [ms]
+
 int32 ecef_x            # ECEF X coordinate [cm]
 int32 ecef_y            # ECEF Y coordinate [cm]
 int32 ecef_z            # ECEF Z coordinate [cm]
