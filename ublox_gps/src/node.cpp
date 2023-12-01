@@ -53,6 +53,7 @@
 #include <ublox_msgs/msg/mon_ver.hpp>
 #include <ublox_msgs/msg/nav_clock.hpp>
 #include <ublox_msgs/msg/nav_posecef.hpp>
+#include <ublox_msgs/msg/nav_hpposecef.hpp>
 #include <ublox_msgs/msg/nav_status.hpp>
 
 #include <ublox_gps/adr_udr_product.hpp>
@@ -406,6 +407,7 @@ void UbloxNode::getRosParams() {
   this->declare_parameter("publish.nav.clock", getRosBoolean(this, "publish.nav.all"));
   this->declare_parameter("publish.nav.heading", getRosBoolean(this, "publish.nav.all"));
   this->declare_parameter("publish.nav.posecef", getRosBoolean(this, "publish.nav.all"));
+  this->declare_parameter("publish.nav.hpposecef", getRosBoolean(this, "publish.nav.all"));
   this->declare_parameter("publish.nav.posllh", getRosBoolean(this, "publish.nav.all"));
   this->declare_parameter("publish.nav.pvt", getRosBoolean(this, "publish.nav.all"));
   this->declare_parameter("publish.nav.relposned", getRosBoolean(this, "publish.nav.all"));
@@ -465,6 +467,9 @@ void UbloxNode::getRosParams() {
   }
   if (getRosBoolean(this, "publish.nav.posecef")) {
     nav_posecef_pub_ = this->create_publisher<ublox_msgs::msg::NavPOSECEF>("navposecef", 1);
+  }
+  if (getRosBoolean(this, "publish.nav.hpposecef")) {
+    nav_hpposecef_pub_ = this->create_publisher<ublox_msgs::msg::NavHPPOSECEF>("navhpposecef", 1);
   }
   if (getRosBoolean(this, "publish.nav.clock")) {
     nav_clock_pub_ = this->create_publisher<ublox_msgs::msg::NavCLOCK>("navclock", 1);
@@ -530,6 +535,11 @@ void UbloxNode::subscribe() {
 
   if (getRosBoolean(this, "publish.nav.posecef")) {
     gps_->subscribe<ublox_msgs::msg::NavPOSECEF>([this](const ublox_msgs::msg::NavPOSECEF &m) { nav_posecef_pub_->publish(m); },
+                                            1);
+  }
+
+  if (getRosBoolean(this, "publish.nav.hpposecef")) {
+    gps_->subscribe<ublox_msgs::msg::NavHPPOSECEF>([this](const ublox_msgs::msg::NavHPPOSECEF &m) { nav_hpposecef_pub_->publish(m); },
                                             1);
   }
 
